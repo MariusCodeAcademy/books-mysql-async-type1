@@ -5,6 +5,9 @@ const cors = require('cors');
 const mysql = require('mysql2/promise');
 const dbConfig = require('./dbConfig');
 
+// routes
+const booksRoute = require('./API/books');
+
 const PORT = process.env.SERVER_PORT || 3000;
 
 const app = express();
@@ -24,5 +27,7 @@ app.get('/', async (req, res) => {
     res.status(500).send({ error: 'Sometning went wrong' });
   }
 });
+
+app.use('/book', booksRoute);
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
