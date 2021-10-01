@@ -18,7 +18,7 @@ const renderBooks = (arr, dest) => {
       <div class="card-body">
         <h5 class="card-title">${bookItem.title}</h5>
         <p class="card-text">${bookItem.author}</p>
-        <button class="btn btn-primary">View</button>
+        <button class="btn btn-primary">Delete</button>
       </div>
     </div>
     `,

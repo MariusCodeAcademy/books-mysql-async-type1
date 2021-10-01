@@ -18,6 +18,8 @@ router.get('/', async (req, res) => {
 });
 router.post('/add', (req, res) => {
   // sukurti knyga
+  console.log('we got data to create book', req.body);
+  res.send({ msg: 'Trying to add a book' });
 });
 router.delete('/:id', (req, res) => {
   // istrinti knyga knyga
