@@ -14,8 +14,15 @@ app.use(morgan('common'));
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Hello express');
+app.get('/', async (req, res) => {
+  try {
+    const conn = await mysql.createConnection(dbConfig);
+    res.send({ msg: 'Connected' });
+    await conn.end();
+  } catch (error) {
+    console.log('/ got error ', error.message);
+    res.status(500).send({ error: 'Sometning went wrong' });
+  }
 });
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
