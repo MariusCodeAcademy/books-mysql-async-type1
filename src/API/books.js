@@ -17,6 +17,7 @@ router.get('/', async (req, res) => {
     res.status(500).send({ error: 'Error getting books' });
   }
 });
+
 router.post('/add', async (req, res) => {
   // sukurti knyga
   console.log('we got data to create book', req.body);
@@ -26,6 +27,7 @@ router.post('/add', async (req, res) => {
     author: joi.string().min(3).max(20).required(),
     year: joi.number().greater(1000).less(2021).required(),
     image: joi.string().min(3).max(100).required(),
+    category: joi.number().positive(),
   });
 
   let formValid = false;
@@ -49,7 +51,8 @@ router.post('/add', async (req, res) => {
 
   try {
     const conn = await mysql.createConnection(dbConfig);
-    const sql = 'INSERT INTO books (title,author,year,image) VALUES(?,?,?,?)';
+    const sql =
+      'INSERT INTO books (title,author,year,image,category) VALUES(?,?,?,?,?)';
     const [result] = await conn.execute(sql, Object.values(req.body));
     res.send({ msg: 'book added' });
     await conn.end();

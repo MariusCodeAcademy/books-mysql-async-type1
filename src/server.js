@@ -7,6 +7,7 @@ const dbConfig = require('./dbConfig');
 
 // routes
 const booksRoute = require('./API/books');
+const booksCatRoute = require('./API/booksCategories');
 
 const PORT = process.env.SERVER_PORT || 3000;
 
@@ -29,5 +30,6 @@ app.get('/', async (req, res) => {
 });
 
 app.use('/book', booksRoute);
+app.use('/categories', booksCatRoute);
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
