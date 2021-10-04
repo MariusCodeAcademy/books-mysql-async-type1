@@ -14,17 +14,20 @@ const renderBooks = (arr, dest) => {
   const generatedBooks = arr.map(
     (bookItem) => `
     <div class="card" style="width: 18rem;">
-      <img src="assets/${bookItem.image}" class="card-img-top" alt="${bookItem.title}">
+      <img src="assets/${bookItem.image}" class="card-img-top" alt="${
+      bookItem.title
+    }">
       <div class="card-body">
         <h5 class="card-title">${bookItem.title}</h5>
         <p class="card-text">${bookItem.author}</p>
+        ${bookItem.cat_name ? `<h4>category:${bookItem.cat_name} </h4>` : ''}
         <button class="btn btn-primary">Delete</button>
       </div>
     </div>
     `,
   );
   // eslint-disable-next-line no-param-reassign
-  dest.innerHTML = generatedBooks;
+  dest.innerHTML = generatedBooks.join('');
 };
 
 const init = async () => {

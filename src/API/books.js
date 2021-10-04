@@ -9,7 +9,13 @@ router.get('/', async (req, res) => {
   // gauti visas knygas
   try {
     const conn = await mysql.createConnection(dbConfig);
-    const [result] = await conn.query('SELECT * FROM books');
+    const sql = `
+    SELECT b.id, b.title, b.author, b.timeStamp, b.year, b.image, c.cat_name
+    FROM \`books\` AS b
+    LEFT JOIN \`book_categories\` AS c
+    ON b.category = c.id
+    ORDER BY b.timeStamp`;
+    const [result] = await conn.query(sql);
     res.send({ msg: 'got books', result });
     await conn.end();
   } catch (error) {
